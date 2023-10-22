@@ -2,8 +2,7 @@ package seminars.first.Calculator;
 import org.testng.annotations.Test;
 import org.junit.jupiter.api.DisplayName;
 
-import static com.github.attiand.assertj.jaxrs.Assertions.assertThat;
-import static java.lang.Math.abs;
+
 import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

@@ -15,6 +15,8 @@
 
 [CalculatorTest](Calculator/CalculatorTest.java)
 
+Результат
+![task1](calc_tests.png)
 
 **Задание 2. (необязательное)** 
 
@@ -34,3 +36,6 @@
 и класс Shop для написания методов сортировки и тестов.
 
 [newTests](Shop/ShopTest.java)
+
+Результат
+![task2](shop_tests.png)
