@@ -1,54 +1,60 @@
 package seminars.first.Calculator;
+import org.testng.annotations.Test;
+import org.junit.jupiter.api.DisplayName;
+
+import static com.github.attiand.assertj.jaxrs.Assertions.assertThat;
+import static java.lang.Math.abs;
+import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class CalculatorTest {
-    public static void main(String[] args) {
-        // Проверка базового функционала с целыми числами:
-        if (8 != Calculator.calculation(2, 6, '+')) {
-            throw new AssertionError("Ошибка в методе");
+
+        @Test
+        @DisplayName("Проверка метода calculatingDiscount, на корректный рассчет сумму с учетом скидки для допустимых входных данных")
+        public void testCalculatingDiscountWithValidInput() {
+            double purchaseAmount = 100.0;
+            int discountPercentage = 10;
+            double expectedDiscountedPrice = 90.0; // Ожидаемая сумма с учетом скидки
+            double actualDiscountedPrice = Calculator.calculatingDiscount(purchaseAmount, discountPercentage);
+            assertEquals(actualDiscountedPrice, expectedDiscountedPrice, 0.00001);
         }
 
-        if (0 != Calculator.calculation(2, 2, '-')) {
-            throw new AssertionError("Ошибка в методе");
+
+        @Test
+        @DisplayName("Проверка метода calculateDiscount на выброс исключения, если сумма покупки равна нулю")
+        public void testCalculateDiscountWithZeroPurchaseAmount() {
+            double purchaseAmount = 0.0;
+            int discountPercentage = 10;
+
+                // Ожидается IllegalArgumentException, так как сумма покупки равна нулю
+                assertThatIllegalArgumentException().isThrownBy(() -> {
+                    Calculator.calculatingDiscount(purchaseAmount, discountPercentage);
+                });
         }
 
-        if (14 != Calculator.calculation(2, 7, '*')) {
-            throw new AssertionError("Ошибка в методе");
+
+        @Test
+        @DisplayName("Проверка метода calculateDiscount на выброс исключения, если процент скидки отрицательный")
+        public void testCalculateDiscountWithNegativeDiscountPercentage() {
+            double purchaseAmount = 100.0;
+            int discountPercentage = -10;
+
+            // Ожидается IllegalArgumentException, так как процент скидки отрицательный
+            assertThatIllegalArgumentException().isThrownBy(() -> {
+                Calculator.calculatingDiscount(purchaseAmount, discountPercentage);
+            });
         }
 
-        if (2 != Calculator.calculation(100, 50, '/')) {
-            throw new AssertionError("Ошибка в методе");
+        @Test
+        @DisplayName("Проверка метода calculateDiscount на выброс исключения, если процент скидки больше 100")
+        public void testCalculateDiscountWithDiscountPercentageGreaterThan100() {
+            double purchaseAmount = 100.0;
+            int discountPercentage = 110;
+
+            // Ожидается IllegalArgumentException, так как процент скидки больше 100
+            assertThatIllegalArgumentException().isThrownBy(() -> {
+                Calculator.calculatingDiscount(purchaseAmount, discountPercentage);
+            });
         }
-
-        // Случаи с неправильными аргументами
-        // аргумент operator типа char, должен вызывать исключение, если он получает не базовые символы (+-*/)
-        // try {
-        //     seminars.first.Calculator.Calculator.calculation(8, 4, '_');
-        // } catch (IllegalStateException e) {
-        //     if (!e.getMessage().equals("Unexpected value operator: _")) {
-        //         throw new AssertionError("Ошибка в методе");
-        //     }
-        // }
-
-        // Проверка базового функционала с целыми числами, с использованием утверждений:
-        assert 8 == Calculator.calculation(2, 6, '+');
-        assert 0 == Calculator.calculation(2, 2, '-');
-        assert 14 == Calculator.calculation(2, 7, '*');
-        assert 2 == Calculator.calculation(100, 50, '/');
-
-        // Проверка базового функционала с целыми числами, с использованием утверждений AssertJ:
-//        assertThat(Calculator.calculation(2, 6, '+')).isEqualTo(8);
-//        assertThat(Calculator.calculation(2, 2, '-')).isEqualTo(0);
-//        assertThat(Calculator.calculation(2, 7, '*')).isEqualTo(14);
-//        assertThat(Calculator.calculation(100, 50, '/')).isEqualTo(2);
-
-        // Проверка ожидаемого исключения, с использованием утверждений AssertJ:
-//        assertThatThrownBy(() ->
-//                Calculator.calculation(8, 4, '_')
-//        ).isInstanceOf(IllegalStateException.class);
-
-        System.out.println(Calculator.calculation(2_147_483_647, 1, '+')); // integer overflow
-        System.out.println(Calculator.squareRootExtraction(169));
-
 
     }
-}

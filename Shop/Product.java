@@ -1,15 +1,20 @@
 package seminars.first.Shop;
 
 public class Product {
-    private Integer cost; // Стоимость продукта
+    private Double cost; // Стоимость продукта
     private String title; // Название
 
+    public Product(String title, Double cost) {
+        this.title = title;
+        this.cost = cost;
+    }
+
     // Геттеры, сеттеры:
-    public int getCost() {
+    public Double getCost() {
         return cost;
     }
 
-    public void setCost(int cost) {
+    public void setCost(Double cost) {
         this.cost = cost;
     }
 

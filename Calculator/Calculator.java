@@ -45,13 +45,12 @@ public class Calculator {
     public static double calculatingDiscount(double purchaseAmount, int discountAmount) {
         // purchaseAmount - сумма покупки
         // discountAmount - размер скидки
-        {
-            if (purchaseAmount < 0 || discountAmount < 0 || discountAmount > 100) {
-                throw new ArithmeticException("Invalid arguments");
+
+            if (purchaseAmount <= 0 || discountAmount <= 0 || discountAmount > 100) {
+                throw new IllegalArgumentException("Invalid arguments");
             }
-            double discount = purchaseAmount * (discountAmount / 100);
-            return purchaseAmount - discount; // Метод должен возвращать сумму покупки со скидкой
-        }
+            else {double discount = purchaseAmount * discountAmount / 100;
+            return purchaseAmount - discount;} // Метод должен возвращать сумму покупки со скидкой
 
     }
 }
